@@ -10,6 +10,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: leads
+    description: Lead capture operations
 paths:
   /healthz:
     get:
@@ -24,6 +26,37 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /marketing/leads:
+    post:
+      operationId: submitLead
+      tags: [leads]
+      summary: Submit a lead
+      description: Capture a lead from the marketing site waitlist form
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LeadInput"
+      responses:
+        "201":
+          description: Lead submitted successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LeadResponse"
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
 components:
   schemas:
     HealthStatus:
@@ -33,4 +66,64 @@ components:
           type: string
       required:
         - status
-
+    LeadInput:
+      type: object
+      required:
+        - fullName
+        - email
+        - companyName
+        - roleType
+        - startupIntent
+      properties:
+        fullName:
+          type: string
+          minLength: 2
+          maxLength: 100
+        email:
+          type: string
+          format: email
+          maxLength: 255
+        companyName:
+          type: string
+          maxLength: 120
+        roleType:
+          type: string
+          enum:
+            - startup
+            - mentor
+            - investor
+            - business_user
+            - other
+        startupIntent:
+          type: array
+          items:
+            type: string
+          minItems: 1
+        servicesOffered:
+          type: array
+          items:
+            type: string
+        servicesNeeded:
+          type: array
+          items:
+            type: string
+        message:
+          type: ["string", "null"]
+          maxLength: 1000
+    LeadResponse:
+      type: object
+      required:
+        - ok
+      properties:
+        ok:
+          type: boolean
+    ErrorResponse:
+      type: object
+      required:
+        - ok
+        - error
+      properties:
+        ok:
+          type: boolean
+        error:
+          type: string

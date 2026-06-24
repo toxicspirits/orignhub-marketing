@@ -5,20 +5,7 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
-export interface HealthStatus {
-  status: string;
-}
-
-export type LeadInputRoleType = typeof LeadInputRoleType[keyof typeof LeadInputRoleType];
-
-
-export const LeadInputRoleType = {
-  startup: 'startup',
-  mentor: 'mentor',
-  investor: 'investor',
-  business_user: 'business_user',
-  other: 'other',
-} as const;
+import type { LeadInputRoleType } from './leadInputRoleType';
 
 export interface LeadInput {
   /**
@@ -41,13 +28,3 @@ export interface LeadInput {
      */
   message?: string | null;
 }
-
-export interface LeadResponse {
-  ok: boolean;
-}
-
-export interface ErrorResponse {
-  ok: boolean;
-  error: string;
-}
-
