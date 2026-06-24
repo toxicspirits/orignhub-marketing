@@ -165,7 +165,7 @@ export default function Home() {
                   Find startup services and collaborators <span className="text-primary relative whitespace-nowrap">faster.</span>
                 </h1>
                 <p className="text-xl text-zinc-400 leading-relaxed mb-10 max-w-xl">
-                  Stop asking for intros. List what you need, find who can help, and actually get moving.
+                  A startup-first marketplace where founders can list what they offer, discover the help they need, and grow through collaboration.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Button
@@ -240,7 +240,7 @@ export default function Home() {
         <section className="py-24 bg-background border-b border-border">
           <div className="container mx-auto px-4 max-w-6xl">
             <AnimatedSection className="text-center max-w-3xl mx-auto mb-16">
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-6">Stop relying on whose brother knows whom.</h2>
+              <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-6">Startup growth still depends too much on fragmented networks.</h2>
               <p className="text-lg text-muted-foreground">
                 Founders rely on referrals, WhatsApp groups, LinkedIn posts, and events to find services, collaborators, mentors, and opportunities. Useful startups are hard to discover, and early teams lose time searching instead of building.
               </p>
@@ -256,8 +256,8 @@ export default function Home() {
                 </h3>
                 <ul className="space-y-6">
                   {[
-                    "Ask on Twitter/LinkedIn, get ghosted",
-                    "WhatsApp groups where the same 10 people help",
+                    "Discovery through social posts and cold messages rarely converts",
+                    "Community groups offer limited reach and no accountability",
                     "Referrals from referrals, no accountability",
                     "Miss opportunities because you didn't know who to ask"
                   ].map((item, i) => (
@@ -306,9 +306,9 @@ export default function Home() {
         <section className="py-24 px-4 bg-muted/20">
           <div className="container mx-auto max-w-6xl text-center">
             <AnimatedSection>
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-6">One place. Every startup need.</h2>
+              <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-6">A focused marketplace for startup-to-startup growth.</h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-16">
-                Profile → services → needs → matches. No back-and-forth, no cold outreach, no wasted time.
+                Create a profile, list your services, add what you need, and get matched with startups that can help. Start with services and collaboration, then grow into mentorship and investor discovery.
               </p>
 
               <div className="flex flex-wrap justify-center gap-4 max-w-4xl mx-auto">
@@ -430,7 +430,7 @@ export default function Home() {
               </div>
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-6">Starting with services. Expanding into startup growth.</h2>
               <p className="text-lg text-muted-foreground mb-12 max-w-3xl mx-auto">
-                We're starting with services because that's where founders bleed money and time. Mentorship, verification, government schemes, and investor discovery come next.
+                orignhub begins with services and collaboration — the foundation every early-stage startup needs. Mentorship, verification, government schemes, and investor discovery are on the roadmap.
               </p>
               <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 text-sm text-muted-foreground font-medium">
                 <span className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-border"></div> Mentorship</span>
@@ -449,7 +449,7 @@ export default function Home() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
               
               <AnimatedSection className="text-left text-white order-2 lg:order-1">
-                <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-white">Get in before we open the doors.</h2>
+                <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-white">Join the early access list.</h2>
                 <p className="text-xl text-zinc-400 mb-10">
                   Tell us what you offer and what you need. Early members shape the platform.
                 </p>
