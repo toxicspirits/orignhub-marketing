@@ -46,7 +46,7 @@ export default function Home() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
             </div>
-            LaunchLink
+            orignhub
           </div>
 
           {/* Desktop Nav */}
@@ -319,7 +319,7 @@ export default function Home() {
             </div>
             <h2 className="text-3xl font-bold tracking-tight mb-6">Starting with services. Expanding into startup growth.</h2>
             <p className="text-lg text-muted-foreground mb-12">
-              LaunchLink is starting as a services marketplace, but our vision is a complete growth ecosystem for founders.
+              orignhub is starting as a services marketplace, but our vision is a complete growth ecosystem for founders.
             </p>
             <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 text-sm text-muted-foreground font-medium">
               <span className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-border"></div> Mentorship</span>
@@ -396,12 +396,12 @@ export default function Home() {
       <footer className="py-12 bg-card border-t border-border text-center md:text-left">
         <div className="container mx-auto px-4 max-w-6xl flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
-            <div className="font-bold text-xl mb-2 text-foreground">LaunchLink</div>
+            <div className="font-bold text-xl mb-2 text-foreground">orignhub</div>
             <p className="text-muted-foreground text-sm">The startup-first services marketplace.</p>
           </div>
           
           <div className="flex items-center gap-6 text-sm font-medium">
-            <a href="mailto:hello@launchlink.io" className="text-muted-foreground hover:text-foreground transition-colors">hello@launchlink.io</a>
+            <a href="mailto:hello@orignhub.com" className="text-muted-foreground hover:text-foreground transition-colors">hello@orignhub.com</a>
             <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Privacy Note</a>
           </div>
           
