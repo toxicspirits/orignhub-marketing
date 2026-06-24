@@ -11,35 +11,6 @@ const navLinks = [
   { name: "Future Features", href: "#future-features" },
 ];
 
-function useCounter(end: number, duration: number = 2000, startAnimating: boolean) {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    if (!startAnimating) return;
-    
-    let startTime: number | null = null;
-    let animationFrame: number;
-
-    const step = (timestamp: number) => {
-      if (!startTime) startTime = timestamp;
-      const progress = Math.min((timestamp - startTime) / duration, 1);
-      
-      const easeOutExpo = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-      
-      setCount(Math.floor(easeOutExpo * end));
-
-      if (progress < 1) {
-        animationFrame = requestAnimationFrame(step);
-      }
-    };
-
-    animationFrame = requestAnimationFrame(step);
-
-    return () => cancelAnimationFrame(animationFrame);
-  }, [end, duration, startAnimating]);
-
-  return count;
-}
 
 function AnimatedSection({ children, className = "", delay = 0, style = {} }: { children: React.ReactNode, className?: string, delay?: number, style?: React.CSSProperties }) {
   const [isVisible, setIsVisible] = useState(false);
@@ -79,10 +50,6 @@ function AnimatedSection({ children, className = "", delay = 0, style = {} }: { 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  
-  // For counter trigger
-  const [countersVisible, setCountersVisible] = useState(false);
-  const countersRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -90,25 +57,7 @@ export default function Home() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setCountersVisible(true);
-          observer.unobserve(entry.target);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (countersRef.current) {
-      observer.observe(countersRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  const scrollTo = (id: string, eventName?: string) => {
+  const scrollToId = (id: string, eventName?: string) => {
     if (eventName) trackEvent(eventName);
     setMobileMenuOpen(false);
     const element = document.getElementById(id);
@@ -116,10 +65,6 @@ export default function Home() {
       element.scrollIntoView({ behavior: "smooth" });
     }
   };
-
-  const foundersCount = useCounter(2400, 2000, countersVisible);
-  const categoriesCount = useCounter(17, 1500, countersVisible);
-  const citiesCount = useCounter(12, 1500, countersVisible);
 
   return (
     <div className="min-h-screen flex flex-col font-sans text-foreground overflow-x-hidden selection:bg-primary/20 selection:text-primary bg-background">
@@ -146,14 +91,14 @@ export default function Home() {
               <a
                 key={link.name}
                 href={link.href}
-                onClick={(e) => { e.preventDefault(); scrollTo(link.href.substring(1)); }}
+                onClick={(e) => { e.preventDefault(); scrollToId(link.href.substring(1)); }}
                 className={`text-sm font-medium transition-colors ${isScrolled ? "text-muted-foreground hover:text-foreground" : "text-white/80 hover:text-white"}`}
               >
                 {link.name}
               </a>
             ))}
             <Button
-              onClick={() => scrollTo("waitlist", "nav_waitlist_clicked")}
+              onClick={() => scrollToId("waitlist", "nav_waitlist_clicked")}
               className={`rounded-full shadow-sm hover:shadow-md transition-all ${!isScrolled && "bg-white text-black hover:bg-white/90"}`}
             >
               Join Waitlist
@@ -183,14 +128,14 @@ export default function Home() {
               <a
                 key={link.name}
                 href={link.href}
-                onClick={(e) => { e.preventDefault(); scrollTo(link.href.substring(1)); }}
+                onClick={(e) => { e.preventDefault(); scrollToId(link.href.substring(1)); }}
                 className="text-base font-medium py-2 border-b border-border/50"
               >
                 {link.name}
               </a>
             ))}
             <Button
-              onClick={() => scrollTo("waitlist", "nav_waitlist_clicked")}
+              onClick={() => scrollToId("waitlist", "nav_waitlist_clicked")}
               className="w-full mt-2"
             >
               Join Waitlist
@@ -226,7 +171,7 @@ export default function Home() {
                   <Button
                     size="lg"
                     className="h-14 px-8 text-lg rounded-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/25 transition-all"
-                    onClick={() => scrollTo("waitlist", "hero_cta_clicked")}
+                    onClick={() => scrollToId("waitlist", "hero_cta_clicked")}
                   >
                     Join the Waitlist
                   </Button>
@@ -234,7 +179,7 @@ export default function Home() {
                     size="lg"
                     variant="outline"
                     className="h-14 px-8 text-lg rounded-full text-white border-white/20 bg-white/5 hover:bg-white/10 hover:text-white backdrop-blur-sm"
-                    onClick={() => scrollTo("how-it-works")}
+                    onClick={() => scrollToId("how-it-works")}
                   >
                     See How It Works
                   </Button>
@@ -290,27 +235,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 2. Social Proof Counter Strip */}
-        <section ref={countersRef} className="py-8 bg-[#0a0a0a] border-y border-white/5">
-          <div className="container mx-auto px-4 max-w-6xl">
-            <div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-24 text-center">
-              <div>
-                <div className="text-4xl md:text-5xl font-bold text-white mb-1">{foundersCount}{foundersCount === 2400 ? '+' : ''}</div>
-                <div className="text-sm md:text-base text-zinc-400 font-medium">founders on waitlist</div>
-              </div>
-              <div className="hidden md:block w-px h-12 bg-white/10"></div>
-              <div>
-                <div className="text-4xl md:text-5xl font-bold text-white mb-1">{categoriesCount}</div>
-                <div className="text-sm md:text-base text-zinc-400 font-medium">service categories</div>
-              </div>
-              <div className="hidden md:block w-px h-12 bg-white/10"></div>
-              <div>
-                <div className="text-4xl md:text-5xl font-bold text-white mb-1">{citiesCount}</div>
-                <div className="text-sm md:text-base text-zinc-400 font-medium">cities represented</div>
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* 3. Problem Section - Split Layout */}
         <section className="py-24 bg-background border-b border-border">
@@ -403,57 +327,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Founder Testimonials */}
-        <section className="py-24 bg-card border-y border-border">
-          <div className="container mx-auto px-4 max-w-6xl">
-            <AnimatedSection className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Early founders are already on board.</h2>
-            </AnimatedSection>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {[
-                { 
-                  quote: "We've been looking for a place to reach other startups without cold emailing random LinkedIn profiles. orignhub is exactly that gap.", 
-                  name: "Priya Menon", 
-                  role: "Founder @ Growthstack", 
-                  city: "Bangalore",
-                  color: "bg-purple-100 text-purple-700",
-                  initial: "P"
-                },
-                { 
-                  quote: "We're a D2C startup and we need tech, branding, and logistics help constantly. Having one place to find all of that from people who actually get startups is a game changer.", 
-                  name: "Arjun Khanna", 
-                  role: "Co-founder @ Packright", 
-                  city: "Mumbai",
-                  color: "bg-blue-100 text-blue-700",
-                  initial: "A"
-                },
-                { 
-                  quote: "As a marketing agency focused on startups, we struggle to get discovered outside our existing network. Can't wait for this.", 
-                  name: "Sneha Rao", 
-                  role: "CEO @ Fuelbase", 
-                  city: "Delhi",
-                  color: "bg-orange-100 text-orange-700",
-                  initial: "S"
-                }
-              ].map((t, i) => (
-                <AnimatedSection key={i} delay={i * 100} className="bg-background p-8 rounded-2xl border border-border shadow-sm flex flex-col">
-                  <div className="mb-6 text-muted-foreground flex-1">"{t.quote}"</div>
-                  <div className="flex items-center gap-4 mt-auto">
-                    <div className={`w-12 h-12 rounded-full ${t.color} flex items-center justify-center font-bold text-lg`}>
-                      {t.initial}
-                    </div>
-                    <div>
-                      <div className="font-semibold">{t.name}</div>
-                      <div className="text-sm text-muted-foreground">{t.role}</div>
-                      <div className="text-xs text-muted-foreground mt-1 bg-muted inline-block px-2 py-0.5 rounded-full">{t.city}</div>
-                    </div>
-                  </div>
-                </AnimatedSection>
-              ))}
-            </div>
-          </div>
-        </section>
 
         {/* 5. How It Works */}
         <section id="how-it-works" className="py-24 bg-background">
